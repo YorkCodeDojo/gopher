@@ -12,3 +12,13 @@ i       fake    (NULL)  0
 iTo search for a city, enter the city's name.  To search        fake    (NULL) 0
 ifor a county, use the name plus County -- for instance,        fake    (NULL) 0
 iDallas County. fake    (NULL)  0
+
+
+
+https://gopherproxy.meulie.net/gopher.floodgap.com/7/v2/vs
+
+https://darrengoossens.wordpress.com/tag/gophermap/
+
+
+libcurl
+http://pycurl.io/

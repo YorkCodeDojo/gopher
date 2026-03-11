@@ -10,7 +10,6 @@ public class Information : ILine
 
     public override string ToString()
     {
-        //ito spidering.          error.host      1
         var parts = Text.Split('\t');
         return parts[0];
     }
@@ -46,15 +45,77 @@ public class TextFile : ILine
 
 public class SubMenu : ILine
 {
+    public string Text { get; }
+    public string Selector { get; }
+    public string Host { get; }
+    
+    private readonly string _fullLine;
+
     /// <summary>
     /// 1CIA World Factbook     /Archives/mirrors/textfiles.com/politics/CIA    gopher.quux.org 70
     /// </summary>
-    public required string Text { get; init; }
+    public SubMenu(string fullLine)
+    {
+        _fullLine = fullLine;
+        var parts = fullLine.Split('\t');
+
+        Text = parts[0];
+        Selector = parts[1];
+        Host = parts[2];
+    }
 
     public override string ToString()
     {
-        var parts = Text.Split('\t');
-        return parts[0];
+        
+        return _fullLine;
+    }
+}
+
+public class Search : ILine
+{
+    public string Text { get; }
+    public string Selector { get; }
+    public string Host { get; }
+    
+    private readonly string _fullLine;
+
+    public Search(string fullLine)
+    {
+        _fullLine = fullLine;
+        var parts = fullLine.Split('\t');
+
+        Text = parts[0];
+        Selector = parts[1];
+        Host = parts[2];
+    }
+
+    public override string ToString()
+    {
+        return _fullLine;
+    }
+}
+
+public class CCSONameServer : ILine
+{
+    public string Text { get; }
+    public string Selector { get; }
+    public string Host { get; }
+    
+    private readonly string _fullLine;
+
+    public CCSONameServer(string fullLine)
+    {
+        _fullLine = fullLine;
+        var parts = fullLine.Split('\t');
+
+        Text = parts[0];
+        Selector = parts[1];
+        Host = parts[2];
+    }
+
+    public override string ToString()
+    {
+        return _fullLine;
     }
 }
 
@@ -79,7 +140,13 @@ public static class GopherParser
             return new TextFile(line[1..]);
         
         if (line.StartsWith('1'))
-            return new SubMenu { Text = line[1..] };
+            return new SubMenu(line[1..]);
+        
+        if (line.StartsWith('2'))
+            return new CCSONameServer(line[1..]);
+        
+        if (line.StartsWith('7'))
+            return new Search(line[1..]);
         
         return new Unknown { Text = line };
     }
