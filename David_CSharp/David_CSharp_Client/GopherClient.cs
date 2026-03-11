@@ -8,17 +8,17 @@ public class GopherClient : IDisposable
 {
     private readonly Socket _socket;
 
-    private GopherClient(Socket socker)
+    private GopherClient(Socket socket)
     {
-        _socket = socker;
+        _socket = socket;
     }
 
     public static async Task<GopherClient> ConnectAsync(Uri address)
     {
-        var localhost = await Dns.GetHostEntryAsync(address.DnsSafeHost);
-        var localIpAddress = localhost.AddressList[0];
+        var hostEntry = await Dns.GetHostEntryAsync(address.DnsSafeHost);
+        var ipAddress = hostEntry.AddressList[0];
 
-        IPEndPoint ipEndPoint = new(localIpAddress, 70);
+        IPEndPoint ipEndPoint = new(ipAddress, 70);
 
         Socket client = new(
             ipEndPoint.AddressFamily,
