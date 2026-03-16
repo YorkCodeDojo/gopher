@@ -31,7 +31,7 @@ For example `iWelcome To Gopher` is an information line containing the text Welc
 
 ## Getting Started
 
-As shown above,  the HTTP and Gopher protocols are different so it' not possible to use your 
+As shown above, the HTTP and Gopher protocols are different, so it is not possible to use your 
 language's existing HttpClients to connect to a Gopher server.
 
 Instead, you will need to connect at a socket level.   Unlike HTTP which typically uses port 80 (or 443), Gopher normally uses port 70.
@@ -56,8 +56,43 @@ s.on('data', function(d){
 s.end();
 ```
 
-Here we connect to  'gopher.floodgap.com' on port 70 and then send an empty selector.   This means return the root page.
+Here we connect to 'gopher.floodgap.com' on port 70 and then send an empty selector.   This means return the root page.
+
+If your language does not have easy access to sockets, you could try shelling out to curl, or binding to curlib.
 
 
+## Task 1
 
+Retrieve the default page from gopher.floodgap.com (or any other Gopher server of your choice) and render all the text lines to the screen.  
+These are the lines which start with a lowercase i. After the initial 'i' the lines consist of three tab separated elements.  
+You only need to display the first one.
+
+## Task 2
+
+Lines starting with a 1 are links to other gopher pages.  These are tab separated lines.  
+The first element is the link text, the second is the selector, and the third is the host.  
+
+Display the link text on the screen and allow the user to navigate to other pages.
+
+
+## Task 3
+
+Lines starting with a 0 are links to text files.  These have the same format as the submenus from task 2.
+Display the link text on the screen and allow the user to display a text file.
+
+
+## Task 4
+
+Lines starting with a 7 are links to search engines.  The search terms need to follow a '?' (i.e. selector?searchTerm)
+
+For example: `/search?files`
+
+
+## Task 5
+
+Now you have a choice
+
+* Find other interesting servers on the internet
+* Implement the other item types. Such as 'I' the ability to download images
+* Try implementing your own server.
 

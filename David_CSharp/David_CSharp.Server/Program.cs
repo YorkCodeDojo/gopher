@@ -2,6 +2,67 @@
 using System.Net.Sockets;
 using System.Text;
 
+var Model = new Model();
+
+Measure AddMeasure(string tableName, string measureName, string sql)
+{
+    if (Model.Tables[tableName].Measures.Contains(measureName))
+        return Model.Tables[tableName].Measures[measureName];
+    
+    return Model.Tables[tableName].AddMeasure(
+        measureName, 
+        sql
+    );     
+}
+
+AddMeasure("costing", "avg cost per cs", "SUM(costing[price]) / DISTINCTCOUNT(costing[external_session_id])");
+
+
+public class Model
+{
+    public TableCollection Tables { get; set; }
+}
+
+public class TableCollection
+{
+    public Table this[string tableName]
+    {
+        get => throw new NotImplementedException();
+    }
+}
+
+public class Table
+{
+    public MeasuresCollection Measures { get; set; }
+
+    public Measure AddMeasure(string measureName, string sql)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+public class MeasuresCollection
+{
+    public Measure this[string tableName]
+    {
+        get => throw new NotImplementedException();
+    }
+
+    public bool Contains(string measureName)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+public class Measure
+{
+    
+}
+
+
+
 var hostName = Dns.GetHostName();
 var localhost = await Dns.GetHostEntryAsync(hostName);
 var localIpAddress = localhost.AddressList[0];
