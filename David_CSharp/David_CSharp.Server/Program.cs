@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 
-const string BaseFolder = "/Users/davidbetteridge/gopher/David_CSharp/David_CSharp.Server";
+const string BaseFolder = "/Users/davidbetteridge/gopher";
 
 var hostName = Dns.GetHostName();
 var localhost = await Dns.GetHostEntryAsync(hostName);
@@ -47,20 +47,27 @@ static async Task HandleClient(Socket socket)
         
         foreach (var subfolder in Directory.GetDirectories(fullPath))
         {
-            var folderName = Path.GetFileNameWithoutExtension(subfolder);
-            var selector = "/0" + subfolder[(BaseFolder.Length)..];
-            var ackMessage = $"1{folderName}\t{selector}\tlocalhost\t70" + System.Environment.NewLine;
-            var echoBytes = Encoding.UTF8.GetBytes(ackMessage);
-            await socket.SendAsync(echoBytes, 0);
+            var filename = Path.GetFileNameWithoutExtension(subfolder);
+            if (!string.IsNullOrWhiteSpace(filename))
+            {
+                Console.WriteLine(filename);
+                var selector = "/0" + subfolder[(BaseFolder.Length)..];
+                var ackMessage = $"1{filename}\t{selector}\tlocalhost\t70" + System.Environment.NewLine;
+                var echoBytes = Encoding.UTF8.GetBytes(ackMessage);
+                await socket.SendAsync(echoBytes, 0);
+            }
         }
 
         foreach (var subfolder in Directory.GetFiles(fullPath))
         {
             var folderName = Path.GetFileNameWithoutExtension(subfolder);
-            var selector = "/1" + subfolder[(BaseFolder.Length)..];
-            var ackMessage = $"0{folderName}\t{selector}\tlocalhost\t70" + System.Environment.NewLine;
-            var echoBytes = Encoding.UTF8.GetBytes(ackMessage);
-            await socket.SendAsync(echoBytes, 0);
+            if (!string.IsNullOrWhiteSpace(folderName))
+            {
+                var selector = "/1" + subfolder[(BaseFolder.Length)..];
+                var ackMessage = $"0{folderName}\t{selector}\tlocalhost\t70" + System.Environment.NewLine;
+                var echoBytes = Encoding.UTF8.GetBytes(ackMessage);
+                await socket.SendAsync(echoBytes, 0);
+            }
         }
         
         await socket.SendAsync(Encoding.UTF8.GetBytes("." + System.Environment.NewLine), 0);

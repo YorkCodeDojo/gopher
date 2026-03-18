@@ -11,30 +11,10 @@ public partial class MainWindow : Window
         new ImageSlide("Images/logo.jpg", sizeToFit: true),
         new ImageSlide("Images/steps.png"),
         new ImageSlide("Images/ethos.jpg"),
-        new TextSlide("Thanks to Patch", 30),
+        new ListSlide(["Venue - Patch",  "Drink - Honesty Bar", "Pizza - York Developers"], 30),
         new TextSlide("Gopher", 30),
-        new TextSlide("Thanks to Patch", 30),
-        
-        // TIL In the 90s there existed an Internet Protocol called Gopher, developed by University of Minnesota,
-        // that was initially more popular than the World Wide Web, died out because University of Minnesota decided
-        // to charge fees to use the implementation of the Gopher server
-        
-        //
-        // new ImageSlide("Images/early.jpg.webp", sizeToFit: true), // Harry Beck 1933
-        // new ImageSlide("Images/london.gif"),
-        // new ImageSlide("Images/new-york-map.png"),
-        // new ImageSlide("Images/Tokyo_subway_map.png"),
-        // new ImageSlide("Images/Singapore.png", 1600, 1200),
-        // new ImageSlide("Images/liverpool.jpg"),
-        // new TextSlide("What about York?", 30),
-        // new ImageSlide("Images/york.png", sizeToFit: true),
-        // new UrlSlide("https://content.tfl.gov.uk/tfl-line-diagram-standard.pdf", 50),
-        // new ImageSlide("Images/SampleCode.png", sizeToFit: true),
-        // new ImageSlide("Images/demo1.png", 1600, 1000),
-        // new ImageSlide("Images/demo2.png", 1600, 1000),
-        // new ImageSlide("Images/demo3.png", sizeToFit: true),
-        // new ListSlide(["Manually Designed", "Randomly Generated"], 75),
-        // new ListSlide(["https://github.com/YorkCodeDojo/undergroundmap"], 50),
+        new ListSlide(["Example Document",  "Example Server", "Demo client"], 30),
+        new UrlSlide("https://github.com/YorkCodeDojo/gopher", 50),
     ];
 
     private int _slideNumber = 0;
