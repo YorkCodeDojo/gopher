@@ -2,12 +2,22 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace David_CSharp_Client;
+namespace GettingStarted_csharp;
 
+/// <summary>
+/// Creates a new Gopher client with a specified host
+/// <code>
+/// var client = new GopherClient(new Uri("gopher://colorfield.space"));
+/// </code>
+/// </summary>
+/// <param name="address">For example gopher://colorfield.space</param>
 public class GopherClient(Uri address)
 {
-    public Uri BaseAddress { get; set; } = address;
+    private Uri BaseAddress { get; set; } = address;
     
+    /// <summary>
+    /// Returns the Gopher text resource as specified by the selector
+    /// </summary>
     public async Task<List<string>> GetLinesAsync(string selector, CancellationToken cancellationToken = default)
     {
         var hostEntry = await Dns.GetHostEntryAsync(BaseAddress.DnsSafeHost, cancellationToken);

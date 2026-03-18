@@ -33,7 +33,7 @@ public class TextFile : ILine
 
         Text = parts[0];
         Selector = parts[1];
-        Host = parts[2];
+        Host = "gopher://" + parts[2];
     }
 
     public override string ToString()
@@ -61,7 +61,7 @@ public class SubMenu : ILine
 
         Text = parts[0];
         Selector = parts[1];
-        Host = parts[2];
+        Host = "gopher://" +  parts[2];
     }
 
     public override string ToString()
@@ -86,7 +86,7 @@ public class Search : ILine
 
         Text = parts[0];
         Selector = parts[1];
-        Host = parts[2];
+        Host = "gopher://" + parts[2];
     }
 
     public override string ToString()
@@ -110,7 +110,7 @@ public class CCSONameServer : ILine
 
         Text = parts[0];
         Selector = parts[1];
-        Host = parts[2];
+        Host = "gopher://" + parts[2];
     }
 
     public override string ToString()

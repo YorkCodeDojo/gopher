@@ -2,16 +2,18 @@
 using David_CSharp_Client;
 using Spectre.Console;
 
-var server = new Uri("gopher://gopher.floodgap.com");
+var server = "gopher://colorfield.space";
 // var server = new Uri("gopher://tilde.club/1/~mz721");
+
+// bombadillo gopher://colorfield.space 
   
 await RenderPageAsync(server, "");
 
 return;
 
-async Task RenderPageAsync(Uri baseAddress, string selector)
+async Task RenderPageAsync(string baseAddress, string selector)
 {
-    var client = new GopherClient(baseAddress);
+    var client = new GopherClient(new Uri(baseAddress));
     
     var resourceNumber = 0;
 
@@ -52,27 +54,27 @@ async Task RenderPageAsync(Uri baseAddress, string selector)
     var resource = links[int.Parse(requestedResource) - 1];
 
     if (resource is TextFile tf)
-        await RenderTextFileAsync(baseAddress, tf.Selector);
+        await RenderTextFileAsync(tf.Host, tf.Selector);
     else if (resource is CCSONameServer ns)
-        await RenderPageAsync(baseAddress, ns.Selector);        
+        await RenderPageAsync(ns.Host, ns.Selector);        
     else if (resource is SubMenu sm)
-        await RenderPageAsync(baseAddress, sm.Selector);    
+        await RenderPageAsync(sm.Host, sm.Selector);    
     else if (resource is Search search)
-        await RenderSearchAsync(baseAddress, search.Selector);
+        await RenderSearchAsync(search.Host, search.Selector);
     else
         Console.WriteLine(resource);
 }
 
 
-async Task RenderSearchAsync(Uri baseAddress, string selector)
+async Task RenderSearchAsync(string baseAddress, string selector)
 {
     var searchTerm = AnsiConsole.Ask<string>("What would you like to search for ?");
     await RenderPageAsync(baseAddress, $"{selector}?{searchTerm}");
 }
 
-async Task RenderTextFileAsync(Uri baseAddress, string selector)
+async Task RenderTextFileAsync(string baseAddress, string selector)
 {
-    var client = new GopherClient(baseAddress);
+    var client = new GopherClient(new Uri(baseAddress));
 
     foreach (var line in await client.GetLinesAsync(selector))
     {
