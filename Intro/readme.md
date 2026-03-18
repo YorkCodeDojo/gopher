@@ -77,7 +77,7 @@ Display the link text on the screen and allow the user to navigate to other page
 
 ## Task 3
 
-Lines starting with a 0 are links to text files.  These have the same format as the submenus from task 2.
+Lines starting with a 0 are links to text files.  These have the same 3 element format as the submenus from task 2.
 Display the link text on the screen and allow the user to display a text file.
 
 
