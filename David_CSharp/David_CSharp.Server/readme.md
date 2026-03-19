@@ -22,3 +22,32 @@ https://darrengoossens.wordpress.com/tag/gophermap/
 
 libcurl
 http://pycurl.io/
+
+
+
+
+
+Root Page
+i1 | 2 | 3
+i---------
+i4 | 5 | 6
+i---------
+i7 | 8 | 9
+
+1Position 1 /1
+1Position 2 /2
+
+
+ix | 2 | 3
+i---------
+i4 | 0 | 6
+i---------
+i7 | 8 | 9
+
+
+1Position 2 /12
+
+
+
+
+

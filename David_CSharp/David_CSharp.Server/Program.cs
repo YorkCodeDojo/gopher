@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 
-const string BaseFolder = "/Users/davidbetteridge/gopher";
+const string baseFolder = "/Users/davidbetteridge/gopher";
 
 var hostName = Dns.GetHostName();
 var localhost = await Dns.GetHostEntryAsync(hostName);
@@ -29,21 +29,20 @@ while (true) {
     });
 }
 
-return;
-
 static async Task HandleClient(Socket socket)
 {
     var buffer = new byte[1_024];
     var received = await socket.ReceiveAsync(buffer, SocketFlags.None);
     var request = Encoding.UTF8.GetString(buffer, 0, received).Trim();
     Console.WriteLine("Request " + request);
-
+    
+    
     if (request.StartsWith("/0") || request == "")
     {
         Console.WriteLine("Submenu Request");
         if (request.StartsWith("/0"))
             request = request[2..];
-        var fullPath = BaseFolder + request;
+        var fullPath = baseFolder + request;
         
         foreach (var subfolder in Directory.GetDirectories(fullPath))
         {
@@ -51,19 +50,19 @@ static async Task HandleClient(Socket socket)
             if (!string.IsNullOrWhiteSpace(filename))
             {
                 Console.WriteLine(filename);
-                var selector = "/0" + subfolder[(BaseFolder.Length)..];
+                var selector = "/0" + subfolder[(baseFolder.Length)..];
                 var ackMessage = $"1{filename}\t{selector}\tlocalhost\t70" + System.Environment.NewLine;
                 var echoBytes = Encoding.UTF8.GetBytes(ackMessage);
                 await socket.SendAsync(echoBytes, 0);
             }
         }
-
+    
         foreach (var subfolder in Directory.GetFiles(fullPath))
         {
             var folderName = Path.GetFileNameWithoutExtension(subfolder);
             if (!string.IsNullOrWhiteSpace(folderName))
             {
-                var selector = "/1" + subfolder[(BaseFolder.Length)..];
+                var selector = "/1" + subfolder[(baseFolder.Length)..];
                 var ackMessage = $"0{folderName}\t{selector}\tlocalhost\t70" + System.Environment.NewLine;
                 var echoBytes = Encoding.UTF8.GetBytes(ackMessage);
                 await socket.SendAsync(echoBytes, 0);
@@ -77,8 +76,8 @@ static async Task HandleClient(Socket socket)
     {
         Console.WriteLine("Text File Request");
         request = request[2..];
-        var fullPath = BaseFolder + request;
-
+        var fullPath = baseFolder + request;
+    
         var lines = await File.ReadAllLinesAsync(fullPath);
         foreach (var line in lines)
         {

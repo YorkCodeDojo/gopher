@@ -11,9 +11,9 @@ public partial class MainWindow : Window
         new ImageSlide("Images/logo.jpg", sizeToFit: true),
         new ImageSlide("Images/steps.png"),
         new ImageSlide("Images/ethos.jpg"),
-        new ListSlide(["Venue - Patch",  "Drink - Honesty Bar", "Pizza - York Developers"], 30),
-        new TextSlide("Gopher", 30),
-        new ListSlide(["Example Document",  "Example Server", "Demo client"], 30),
+        new ListSlide(["Venue - Patch",  "Drink - Honesty Bar", "Pizza - York Developers"], 60),
+        new TextSlide("Gopher", 60),
+        new ListSlide(["Example Document",  "Example Server", "Demo client"], 60),
         new UrlSlide("https://github.com/YorkCodeDojo/gopher", 50),
     ];
 
