@@ -2,12 +2,6 @@
 using System.Net.Sockets;
 using System.Text;
 
-var hostName = Dns.GetHostName();
-var localhost = await Dns.GetHostEntryAsync(hostName);
-var localIpAddress = localhost.AddressList[0];
-
-Console.WriteLine("IP Address " + localIpAddress);
-
 IPEndPoint ipEndPoint = new(System.Net.IPAddress.Any, 70);
 
 using var listener = new Socket(
