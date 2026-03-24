@@ -8,10 +8,10 @@ var localIpAddress = localhost.AddressList[0];
 
 Console.WriteLine("IP Address " + localIpAddress);
 
-IPEndPoint ipEndPoint = new(localIpAddress, 70);
+IPEndPoint ipEndPoint = new(System.Net.IPAddress.Any, 70);
 
 using var listener = new Socket(
-    SocketType.Stream,
+    ipEndPoint.AddressFamily, SocketType.Stream,
     ProtocolType.Tcp);
 
 listener.Bind(ipEndPoint);
